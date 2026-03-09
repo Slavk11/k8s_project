@@ -1,0 +1,15 @@
+controller:
+  service:
+    annotations:
+      # Enable PROXY protocol v2 on OVH OpenStack load balancer
+      loadbalancer.openstack.org/proxy-protocol: v2
+      test: "testvalue"
+    externalTrafficPolicy: "Local"
+  config:
+    # Disable strict path validation, to work around a bug in ingress-nginx
+    # https://github.com/kubernetes/ingress-nginx/issues/11176
+    strict-validate-path-type: false
+    # Enable PROXY protocol support for OVH load balancers
+    use-proxy-protocol: true
+    real-ip-header: "proxy_protocol"
+    proxy-real-ip-cidr: "162.19.118.203/32"
