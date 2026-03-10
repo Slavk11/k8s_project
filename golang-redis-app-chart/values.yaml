@@ -1,5 +1,5 @@
 image:
-  repository: [dockerhub login]/golang-redis-app
+  repository: hexg0/golang-redis-app
   pullPolicy: IfNotPresent
   tag: "0.0.1"
 
