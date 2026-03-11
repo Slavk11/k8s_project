@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Temp
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Go build artifacts
+bin/
+dist/
+build/
+coverage/
+*.test
+*.out
+app
+main
+
+# Helm packaged charts
+*.tgz
+
+# Optional env files
+.env
+.env.*

@@ -13,10 +13,10 @@ releases:
   values:
   - values-ovh.yaml
 
-- name: mychart
+- name: golang-redis-app
   namespace: default
-  chart: ./mychart
-  version: "0.1.0"  
+  chart: ./golang-redis-app-chart
+  version: "0.2.1"  
 
 - name: cert-manager
   namespace: cert-manager
