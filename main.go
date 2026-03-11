@@ -6,9 +6,17 @@ import (
 	"strconv"
 
 	"github.com/go-redis/redis"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-var client *redis.Client
+var (
+	client       *redis.Client
+	visitCounter = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "visit_counter",
+		Help: "Количество посещений веб-страницы",
+	})
+)
 
 func init() {
 	client = redis.NewClient(&redis.Options{
@@ -16,9 +24,10 @@ func init() {
 		Password: "",
 		DB:       0,
 	})
+	prometheus.MustRegister(visitCounter)
 }
 
-func visitCounter(w http.ResponseWriter, r *http.Request) {
+func visitHandler(w http.ResponseWriter, r *http.Request) {
 	key := "page:viewcount"
 	val, err := client.Incr(key).Result()
 	if err != nil {
@@ -26,10 +35,12 @@ func visitCounter(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	visitCounter.Inc()
 	fmt.Fprintf(w, "Количество посещений: %s", strconv.FormatInt(val, 10))
 }
 
 func main() {
-	http.HandleFunc("/", visitCounter)
+	http.Handle("/metrics", promhttp.Handler())
+	http.HandleFunc("/", visitHandler)
 	http.ListenAndServe(":8080", nil)
 }
