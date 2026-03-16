@@ -1,12 +1,13 @@
 config:
-  clientID: "YOUR_CLIENT_ID"
-  clientSecret: "YOUR_CLIENT_SECRET"
-  cookieSecret: "YOUR_COOKIE_SECRET"
+  clientID: "Ov23liKiTSfuNlTQpFn1"
+  clientSecret: "53c8499ba702704bc45b15ed138f9ddd2aefe069"
+  cookieSecret: "bARbRhZZ9pg3f2gWXEn2X84qbES30tNM"
 ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
   hosts:
     - oauth2-proxy-1041128.radost.ru
   tls:
@@ -17,3 +18,4 @@ extraArgs:
   provider: github
   whitelist-domain: .radost.ru
   cookie-domain: .radost.ru
+  github-user: Slavk11

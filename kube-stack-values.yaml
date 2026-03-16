@@ -1,0 +1,25 @@
+grafana:
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+    - grafana-1041128.radost.ru
+    tls:
+    - hosts:
+      - grafana-1041128.radost.ru
+      secretName: grafana-1041128-radost-ru-tls
+
+  env:
+    GF_AUTH_DISABLE_LOGIN_FORM: "false"
+    GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+    GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: "true"
+    GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana-client
+    GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: 
+    GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://keycloak-1041128.radost.ru/realms/master/protocol/openid-connect/auth
+    GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://keycloak-1041128.radost.ru/realms/master/protocol/openid-connect/token
+    GF_AUTH_GENERIC_OAUTH_API_URL: https://keycloak-1041128.radost.ru/realms/master/protocol/openid-connect/userinfo
+    GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
+    GF_SERVER_ROOT_URL: https://grafana-1041128.radost.ru
+    GF_AUTH_GENERIC_OAUTH_ALLOW_ASSIGN_GRAFANA_ADMIN: "true"
